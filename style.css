@@ -1,0 +1,585 @@
+/* ==========================================
+   ESTILOS GENERALES Y ESCALA DE GRISES (MANGA)
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1a1a1f; /* Fondo general gris oscuro agradable a la vista */
+    font-family: 'Gabriola', 'Times New Roman', serif;
+    font-weight: bold;
+    color: #111111;
+    font-size: 1.7rem;
+    padding: 2rem 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem 0.75rem;
+        font-size: 1.35rem;
+    }
+
+    .main-container {
+        gap: 1rem;
+    }
+
+    .horizontal-buttons {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .manga-btn {
+        font-size: 1.2rem;
+        padding: 0.75rem 0.5rem;
+    }
+
+    .social-box {
+        font-size: 1.2rem;
+    }
+
+    .chibi-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .chibi-speech p {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 0.7rem 0.5rem;
+        font-size: 1.15rem;
+    }
+
+    .manga-btn {
+        font-size: 1rem;
+    }
+
+    .social-box {
+        font-size: 1rem;
+    }
+
+    .chibi-speech p {
+        font-size: 1.1rem;
+    }
+}
+
+/* Contenedor ampliado para aprovechar el ancho */
+.main-container {
+    width: 100%;
+    max-width: 950px; 
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+/* ==========================================
+   RECUADROS EN ESCALA DE GRISES (ESTILO GÓTICO)
+   ========================================== */
+.manga-box {
+    background-color: #d1d1d6; /* Gris base de los contenedores */
+    border: 3px double #2b2b33; /* Borde doble estilo viñeta gótica */
+    border-radius: 4px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+    position: relative;
+    color: #111111;
+}
+
+/* --- BANNER PRINCIPAL MODIFICADO --- */
+.banner-box {
+    /* Estructura y diseño base (mantenido) */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    
+    /* Altura fija o mínima para que no crezca con la imagen */
+    min-height: 220px; 
+    
+    gap: 1.2rem;
+    background-color: #fff;
+    border: 3px solid #2b2b2b;
+    border-radius: 8px;
+    box-shadow: 4px 4px 0px #2b2b2b;
+    margin-bottom: 4rem; /* Aumentado el margen inferior para dar espacio al logo grande */
+    
+    /* TRUCO CLAVE: Permitir que la imagen sobresalga del contenedor */
+    overflow: visible; 
+}
+
+.banner-box .main-title {
+    margin: 0;
+    font-size: 2.3rem;
+    line-height: 1.2;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #2b2b2b;
+}
+
+.banner-box .band-strip {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    margin: 0;
+    border: none;
+    background: transparent;
+}
+
+/* Estilo del Logo Agrandado al Doble */
+.banner-box img.logo-img {
+    width: auto;
+    max-width: 260px; 
+    height: auto;
+    display: block;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    margin-top: -10px; 
+}
+
+/* ==========================================
+   BOTONES EN HORIZONTAL (GRIS MÁS CLARO)
+   ========================================== */
+.horizontal-buttons {
+    display: flex;
+    gap: 1.2rem;
+    justify-content: space-between;
+}
+
+.manga-btn {
+    flex: 1;
+    background-color: #ededf2; /* Gris mucho más claro y suave para los botones */
+    color: #000000;
+    border: 3px double #2b2b33;
+    padding: 0.8rem 0.5rem;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.6rem;
+    font-weight: bold;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    transition: all 0.2s ease;
+}
+
+.manga-btn:hover {
+    background-color: #2b2b33; /* Al pasar el ratón se invierte a oscuro */
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================
+   REDES SOCIALES Y CORREO
+   ========================================== */
+.social-box {
+    text-align: center;
+    padding: 0.8rem;
+    font-size: 1.5rem;
+    background-color: #c7c7cc;
+}
+
+/* ==========================================
+   CHIBI DE LIORA
+   ========================================== */
+.chibi-container {
+    display: flex;
+    align-items: center;
+    gap: 2.4rem;
+    padding: 2.4rem;
+    background-color: #d1d1d6;
+}
+
+.chibi-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #2b2b33;
+    flex-shrink: 0;
+    filter: grayscale(100%);
+}
+
+.chibi-speech p {
+    font-size: 1.6rem;
+    color: #000000;
+    font-style: italic;
+    font-weight: bold;
+}
+
+/* ==========================================
+   ESTILOS ESPECÍFICOS PARA LA PÁGINA DE LANZAMIENTOS
+   ========================================== */
+.section-main-box {
+    padding: 1.5rem;
+}
+
+.main-section-title {
+    font-size: 2.3rem;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    color: #000000;
+    letter-spacing: 1px;
+}
+
+.tomo-block {
+    margin-bottom: 1.5rem;
+}
+
+.tomo-title {
+    font-size: 1.8rem;
+    color: #111111;
+    margin-bottom: 1rem;
+    border-bottom: 1px dashed #444;
+    padding-bottom: 0.3rem;
+}
+
+/* Fila horizontal: Portadas a un lado, datos al lado */
+.tomo-content-row {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.covers-container {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Recuadros rectangulares verticales para portada y contraportada */
+.cover-slot {
+    width: 110px;
+    height: 160px;
+    background-color: #f4f4f8;
+    border: 2px solid #2b2b33;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.unknown-slot {
+    justify-content: center;
+    background-color: #dcdce0;
+}
+
+.question-mark {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #555555;
+}
+
+.img-upload-link {
+    font-size: 1rem;
+    color: #2b2b33;
+    text-decoration: underline;
+    margin: auto 0;
+    line-height: 1.1;
+}
+
+/* Etiqueta reducida para que CONTRAPORTADA quepa perfectamente */
+.cover-label {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #333333;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+/* Bloque de texto con estado, página y capítulo al lado */
+.tomo-details {
+    font-size: 1.5rem;
+    color: #111111;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    background-color: #ededf2;
+    padding: 1rem 1.5rem;
+    border: 1px solid #b5b5bc;
+    border-radius: 4px;
+    min-width: 220px;
+}
+
+.manga-divider {
+    border: none;
+    border-top: 1px solid #b5b5bc;
+    margin: 1.5rem 0;
+}
+
+/* Estilo para la sección inferior del Tomo Físico */
+.physical-box {
+    padding: 1.5rem;
+}
+
+.physical-content {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.physical-img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #2b2b33;
+    filter: grayscale(100%);
+    flex-shrink: 0;
+}
+
+.physical-text-box {
+    flex: 1;
+    background-color: #ededf2;
+    padding: 1.2rem;
+    border: 1px solid #b5b5bc;
+    border-radius: 4px;
+    font-size: 1.5rem;
+    color: #111111;
+    line-height: 1.3;
+}
+
+/* ==========================================
+   ESTILOS PARA EL BANCO DE COMENTARIOS
+   ========================================== */
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.manga-textarea {
+    width: 100%;
+    background-color: #f4f4f8;
+    border: 2px solid #2b2b33;
+    border-radius: 4px;
+    padding: 1rem;
+    font-family: 'Gabriola', 'Times New Roman', serif;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #111111;
+    resize: vertical;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.manga-textarea:focus {
+    outline: none;
+    border-color: #000000;
+    background-color: #ffffff;
+}
+
+.submit-btn {
+    width: 100%;
+    max-width: 300px;
+    background-color: #ededf2;
+    cursor: pointer;
+}
+
+/* --- ESTILOS PARA LA PRESENTACIÓN DE PERSONAJES (El mundo de LyE) --- */
+.characters-container {
+    max-width: 1050px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    display: flex;
+    flex-direction: column;
+    gap: 25px !important;
+}
+
+.char-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: #fff;
+    border: 3px solid #2b2b2b;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 4px 4px 0px #2b2b2b;
+    transition: transform 0.2s ease;
+}
+
+.char-card:hover {
+    transform: translateY(-2px);
+}
+
+.char-dual-dni {
+    align-items: stretch;
+}
+
+.char-photos {
+    display: flex;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+/* Recuadro tipo DNI (vertical) */
+.char-photo {
+    width: 270px;
+    height: 360px;
+    background: #eaeaea;
+    border: 3px dashed #666;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    color: #555;
+    text-align: center;
+    flex-shrink: 0;
+}
+.char-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    -ms-interpolation-mode: bicubic; /* Para navegadores antiguos basados en IE */
+    image-rendering: -webkit-optimize-contrast; /* Optimiza los contrastes de los bordes del dibujo */
+    image-rendering: high-quality; /* Fuerza al navegador a usar el mejor algoritmo de renderizado disponible */
+}
+
+/* Rectángulo horizontal para introducir texto */
+.char-info {
+    flex-grow: 1;
+    background: #f9f9f9;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    padding: 0.8rem 1.2rem;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.char-info h3 {
+    margin: 0 0 0.4rem 0;
+    font-size: 1.6rem;
+    color: #2b2b2b;
+}
+
+.char-text {
+    margin: 0;
+    color: #666;
+    font-style: italic;
+    font-size: 1.3rem;
+}
+
+/* Destacar a Lyza (Dios) */
+.char-god {
+    border: 3px solid #d4af37;
+    background: #fffdf5;
+    box-shadow: 4px 4px 0px #d4af37;
+}
+
+.god-badge {
+    font-size: 0.75rem;
+    background: #d4af37;
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin-left: 6px;
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 600px) {
+    .char-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .char-dual-dni {
+        align-items: center;
+    }
+    .char-photos {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .char-info {
+        width: 100%;
+    }
+}
+/* Hace que la foto tenga un cursor de lupa/clic indicando que es interactiva */
+.char-photo {
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+/* Efecto al hacer hover (puedes cambiarlo a un evento de clic con JS si prefieres un modal) */
+.char-photo:hover {
+    transform: scale(1.05);
+    z-index: 10;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+/* --- DISEÑO EXCLUSIVO Y DEFINITIVO PARA "EL GEN L-Y" --- */
+.gen-ly-box {
+    background: #ffffff;
+    border: 3px solid #2b2b2b;
+    border-radius: 8px;
+    box-shadow: 4px 4px 0px #2b2b2b;
+    padding: 1.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.5rem;
+    box-sizing: border-box;
+}
+
+/* El recuadro de la foto: cuadrado perfecto, pequeño y fijo */
+.gen-ly-foto-cuadrada {
+    width: 100px !important;
+    height: 100px !important;
+    min-width: 100px !important;
+    min-height: 100px !important;
+    max-width: 100px !important;
+    max-height: 100px !important;
+    background-color: #f4f4f4 !important;
+    border: 2px dashed #2b2b2b !important;
+    border-radius: 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+}
+
+.gen-ly-foto-cuadrada span {
+    font-size: 0.50rem;
+    color: #666;
+    text-align: center;
+}
+
+.gen-ly-foto-cuadrada img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 4px;
+}
+
+.gen-ly-texto {
+    flex-grow: 1;
+}
+
