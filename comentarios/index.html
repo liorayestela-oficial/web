@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banco de Comentarios - Liora y Estela: Paraíso</title>
     <link rel="stylesheet" href="../style.css">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -29,10 +30,47 @@
         <div class="manga-box content-box" style="padding: 1.5rem;">
             <h2 class="section-subtitle" style="text-align: center; margin-bottom: 1rem; font-size: 2rem;">Déjanos tu comentario anónimo</h2>
             
-            <form action="https://formspree.io/f/xqpzeebb" method="POST" class="comment-form">
-                <textarea name="comentario" rows="6" placeholder="Escribe aquí tu opinión sin miedo..." required class="manga-textarea"></textarea>
+            <form id="commentForm" action="https://formspree.io/f/xqpzeebb" method="POST" class="comment-form">
+                <div class="comment-input-wrap">
+                    <textarea id="comentario" name="comentario" rows="6" maxlength="500" placeholder="Escribe aquí tu opinión sin miedo..." required class="manga-textarea"></textarea>
+                    <span id="char-counter" class="char-counter" aria-live="polite">0/500</span>
+                </div>
+
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAAERJNchb_Kwe0BGY"></div>
+
                 <button type="submit" class="manga-btn submit-btn">Enviar Comentario Anónimo</button>
             </form>
+
+            <script>
+                const textarea = document.getElementById('comentario');
+                const counter = document.getElementById('char-counter');
+                const form = document.getElementById('commentForm');
+
+                const updateCounter = () => {
+                    const length = textarea.value.length;
+                    counter.textContent = `${length}/500`;
+                };
+
+                textarea.addEventListener('input', updateCounter);
+                updateCounter();
+
+                form.addEventListener('submit', function (event) {
+                    const value = textarea.value.trim();
+
+                    if (value.length === 0) {
+                        event.preventDefault();
+                        alert('Escribe un comentario antes de enviar.');
+                        textarea.focus();
+                        return;
+                    }
+
+                    if (value.length > 500) {
+                        event.preventDefault();
+                        alert('El comentario no puede superar 500 caracteres.');
+                        textarea.focus();
+                    }
+                });
+            </script>
         </div>
 
         <div class="manga-box social-box">
