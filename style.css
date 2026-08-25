@@ -130,22 +130,20 @@ body {
     width: 100%;
     max-width: 100%;
     height: auto;
-    object-fit: contain;
-    object-position: center;
-    margin: 0;
-    border: none;
-    background: transparent;
 }
 
 /* Estilo del Logo Agrandado al Doble */
 .banner-box img.logo-img {
     width: auto;
+    /* Pasamos de max-width: 130px a 260px */
     max-width: 260px; 
     height: auto;
     display: block;
     background: transparent;
     border: none;
     box-shadow: none;
+    
+    /* Opcional: Un pequeño desplazamiento negativo hacia arriba para centrarlo mejor visualmente en el espacio del banner */
     margin-top: -10px; 
 }
 
@@ -208,6 +206,7 @@ body {
     border-radius: 50%;
     border: 2px solid #2b2b33;
     flex-shrink: 0;
+    filter: grayscale(100%);
 }
 
 .chibi-speech p {
@@ -233,6 +232,61 @@ body {
     letter-spacing: 1px;
 }
 
+.free-chapters-box {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.free-chapters-intro {
+    margin: -0.8rem 0 1.4rem;
+    font-size: 1.35rem;
+}
+
+.chapter-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.chapter-link {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem;
+    background-color: #ededf2;
+    border: 3px double #2b2b33;
+    border-radius: 4px;
+    color: #000000;
+    text-decoration: none;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+    transition: all 0.2s ease;
+}
+
+.chapter-link:hover {
+    background-color: #2b2b33;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.chapter-number {
+    font-size: 1.15rem;
+    border-right: 1px solid currentColor;
+    padding-right: 0.8rem;
+}
+
+.chapter-arrow {
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+@media (max-width: 600px) {
+    .chapter-links {
+        grid-template-columns: 1fr;
+    }
+}
+
 .tomo-block {
     margin-bottom: 1.5rem;
 }
@@ -256,13 +310,6 @@ body {
 .covers-container {
     display: flex;
     gap: 1rem;
-}
-
-.cover-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.35rem;
 }
 
 /* Recuadros rectangulares verticales para portada y contraportada */
@@ -308,7 +355,6 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     white-space: nowrap;
-    font-family: inherit;
 }
 
 /* Bloque de texto con estado, página y capítulo al lado */
@@ -349,6 +395,7 @@ body {
     object-fit: cover;
     border-radius: 50%;
     border: 2px solid #2b2b33;
+    filter: grayscale(100%);
     flex-shrink: 0;
 }
 
@@ -375,55 +422,18 @@ body {
     margin: 0 auto;
 }
 
-.comment-input-wrap {
-    position: relative;
-    width: 100%;
-}
-
-.comment-input-wrap {
-    position: relative;
-    width: 100%;
-}
-
-.char-counter {
-    position: absolute;
-    right: 0.7rem;
-    bottom: 0.45rem;
-    font-size: 1.4rem;
-    line-height: 1;
-    color: rgba(17, 17, 17, 0.7);
-    background: rgba(244, 244, 248, 0.9);
-    padding: 0.1rem 0.25rem;
-    border-radius: 3px;
-    pointer-events: none;
-}
-
 .manga-textarea {
     width: 100%;
     background-color: #f4f4f8;
     border: 2px solid #2b2b33;
     border-radius: 4px;
     padding: 1rem;
-    padding-bottom: 1.8rem;
     font-family: 'Gabriola', 'Times New Roman', serif;
     font-size: 1.6rem;
     font-weight: bold;
     color: #111111;
     resize: vertical;
     box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.char-counter {
-    position: absolute;
-    right: 0.7rem;
-    bottom: 0.45rem;
-    font-size: 1.4rem;
-    line-height: 1;
-    color: rgba(17, 17, 17, 0.7);
-    background: rgba(244, 244, 248, 0.9);
-    padding: 0.1rem 0.25rem;
-    border-radius: 3px;
-    pointer-events: none;
 }
 
 .manga-textarea:focus {
@@ -624,5 +634,179 @@ body {
 
 .gen-ly-texto {
     flex-grow: 1;
+}
+
+/* ==========================================
+   LECTOR DE CAPÍTULOS GRATUITOS
+   ========================================== */
+.reader-page {
+    min-height: 100vh;
+    padding: 0;
+    background-color: #111114;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.reader {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+.reader-toolbar,
+.reader-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 1.25rem;
+    background-color: #202026;
+    border-color: #3d3d46;
+}
+
+.reader-toolbar {
+    border-bottom: 2px solid #3d3d46;
+}
+
+.reader-toolbar h1 {
+    font-size: 1.7rem;
+    line-height: 1;
+    text-align: center;
+}
+
+.reader-button {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.3rem;
+    white-space: nowrap;
+}
+
+.reader-button:hover {
+    text-decoration: underline;
+}
+
+.reader-status {
+    min-width: 4rem;
+    text-align: right;
+    font-size: 1.2rem;
+}
+
+.page-stage {
+    min-height: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 4rem;
+    touch-action: pan-y;
+}
+
+#comic-page {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    user-select: none;
+}
+
+.reader-nav {
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+    width: 3rem;
+    height: 5rem;
+    transform: translateY(-50%);
+    background: rgba(32, 32, 38, 0.8);
+    border: 1px solid #666671;
+    border-radius: 4px;
+    color: #ffffff;
+    font-family: Georgia, serif;
+    font-size: 3rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.reader-nav:hover {
+    background: #ffffff;
+    color: #111114;
+}
+
+.previous-page {
+    left: 0.75rem;
+}
+
+.next-page {
+    right: 0.75rem;
+}
+
+.reader-footer {
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: 0.45rem;
+    padding-bottom: 0.65rem;
+    border-top: 2px solid #3d3d46;
+    color: #c8c8cf;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.reader-progress {
+    width: 100%;
+    height: 4px;
+    overflow: hidden;
+    background-color: #44444d;
+}
+
+#progress-bar {
+    display: block;
+    width: 0;
+    height: 100%;
+    background-color: #ffffff;
+    transition: width 0.2s ease;
+}
+
+.reader-message {
+    color: #ffffff;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .reader-toolbar,
+    .reader-footer {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    .reader-toolbar h1 {
+        font-size: 1.35rem;
+    }
+
+    .reader-button,
+    .reader-status {
+        font-size: 1rem;
+    }
+
+    .page-stage {
+        padding: 0.5rem 2.5rem;
+    }
+
+    .reader-nav {
+        width: 2.3rem;
+        height: 4rem;
+        font-size: 2.3rem;
+    }
+
+    .previous-page {
+        left: 0.35rem;
+    }
+
+    .next-page {
+        right: 0.35rem;
+    }
+
+    .reader-footer {
+        font-size: 0.9rem;
+    }
 }
 

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Capítulo gratuito - Liora y Estela</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="reader-page">
+    <main class="reader" aria-label="Lector de capítulos">
+        <header class="reader-toolbar">
+            <a href="./lanzamientos.html" class="reader-button" aria-label="Volver a lanzamientos">← <span>Volver</span></a>
+            <h1 id="reader-title">Capítulo</h1>
+            <div class="reader-status"><span id="page-number">1</span> / <span id="page-total">0</span></div>
+        </header>
+
+        <section class="page-stage">
+            <button type="button" class="reader-nav previous-page" aria-label="Página anterior">‹</button>
+            <img id="comic-page" src="" alt="Página del capítulo" draggable="false">
+            <button type="button" class="reader-nav next-page" aria-label="Página siguiente">›</button>
+            <p class="reader-message" hidden></p>
+        </section>
+
+        <footer class="reader-footer">
+            <span>Desliza para pasar página</span>
+            <div class="reader-progress" aria-hidden="true"><span id="progress-bar"></span></div>
+        </footer>
+    </main>
+
+    <script>
+        const chapters = {
+            1: [
+                'Página_00.jpg', 'Pagina_01.jpeg', 'Página_02.jpeg.png', 'Página_03.jpg',
+                'Página_04.png', 'Página_05.png', 'Página_06.PNG', 'Página_07.jpg',
+                'Página_08.PNG', 'Página_09.PNG', 'Página_10.PNG', 'Página_11.jpg',
+                'Página_12.jpg', 'Página_13.jpg', 'Pagina_14.jpg', 'Pagina_15.jpeg',
+                'Página_16.jpg', 'Pagina_17.jpeg', 'Página_18.jpg', 'Página_19.PNG'
+            ],
+            2: [
+                'Página_20.jpeg', 'Página_21.jpeg', 'Página_22.jpeg', 'Página_23.jpeg',
+                'Página_24.jpeg', 'Página_25.jpeg', 'Página_26.jpeg', 'Página_27.jpeg',
+                'Página_28.jpeg', 'Página_29.jpeg', 'Página_30.jpeg', 'Página_31.jpeg',
+                'Página_32.jpeg', 'Página_33.jpeg', 'Página_34.jpeg', 'Página_35.jpeg',
+                'Página_36.jpeg', 'Página_37.PNG', 'Página_38.jpeg', 'Página_39.PNG',
+                'Página_40.PNG', 'Página_41.PNG', 'Página_42.PNG', 'Página_43.PNG',
+                'Página_44.PNG', 'Página_45.PNG', 'Página_46.PNG', 'Página_47.PNG',
+                'Página_48.PNG', 'Página_49.PNG', 'Página_50_1.jpeg', 'Página_50_2.PNG',
+                'Página_51.PNG'
+            ]
+        };
+
+        const chapterNumber = new URLSearchParams(window.location.search).get('capitulo');
+        const pages = chapters[chapterNumber];
+        const pageImage = document.querySelector('#comic-page');
+        const title = document.querySelector('#reader-title');
+        const pageNumber = document.querySelector('#page-number');
+        const pageTotal = document.querySelector('#page-total');
+        const progressBar = document.querySelector('#progress-bar');
+        const message = document.querySelector('.reader-message');
+        let currentPage = 0;
+        let touchStartX = 0;
+
+        function showPage(pageIndex) {
+            currentPage = Math.max(0, Math.min(pageIndex, pages.length - 1));
+            pageImage.src = `./fotos/capitulo_0${chapterNumber}/${encodeURIComponent(pages[currentPage])}`;
+            pageNumber.textContent = currentPage + 1;
+            progressBar.style.width = `${((currentPage + 1) / pages.length) * 100}%`;
+        }
+
+        function changePage(amount) {
+            showPage(currentPage + amount);
+        }
+
+        if (!pages) {
+            title.textContent = 'Capítulo no encontrado';
+            message.textContent = 'Vuelve a lanzamientos para elegir un capítulo.';
+            message.hidden = false;
+            pageImage.hidden = true;
+            document.querySelectorAll('.reader-nav').forEach((button) => button.hidden = true);
+        } else {
+            title.textContent = `Capítulo ${chapterNumber}`;
+            pageTotal.textContent = pages.length;
+            showPage(0);
+        }
+
+        document.querySelector('.previous-page').addEventListener('click', () => changePage(-1));
+        document.querySelector('.next-page').addEventListener('click', () => changePage(1));
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowLeft') changePage(-1);
+            if (event.key === 'ArrowRight' || event.key === ' ') changePage(1);
+        });
+        pageImage.addEventListener('touchstart', (event) => {
+            touchStartX = event.changedTouches[0].screenX;
+        }, { passive: true });
+        pageImage.addEventListener('touchend', (event) => {
+            const distance = event.changedTouches[0].screenX - touchStartX;
+            if (Math.abs(distance) > 45) changePage(distance < 0 ? 1 : -1);
+        }, { passive: true });
+    </script>
+</body>
+</html>
