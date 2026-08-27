@@ -206,7 +206,6 @@ body {
     border-radius: 50%;
     border: 2px solid #2b2b33;
     flex-shrink: 0;
-    filter: grayscale(100%);
 }
 
 .chibi-speech p {
@@ -395,7 +394,6 @@ body {
     object-fit: cover;
     border-radius: 50%;
     border: 2px solid #2b2b33;
-    filter: grayscale(100%);
     flex-shrink: 0;
 }
 
