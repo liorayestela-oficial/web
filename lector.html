@@ -59,9 +59,53 @@
         const message = document.querySelector('.reader-message');
         let currentPage = 0;
         let touchStartX = 0;
+        let touchStartY = 0;
+        let pinchStartDistance = 0;
+        let zoomLevel = 1;
+        let lastTapTime = 0;
+        let isPinching = false;
+        let touchStartScrollLeft = 0;
+        let touchStartScrollTop = 0;
+
+        function updateImageSize() {
+            if (!pageImage.naturalWidth || !pageImage.naturalHeight) return;
+
+            const stage = document.querySelector('.page-stage');
+            const fitScale = Math.min(
+                stage.clientWidth / pageImage.naturalWidth,
+                stage.clientHeight / pageImage.naturalHeight
+            );
+            const imageWidth = pageImage.naturalWidth * fitScale * zoomLevel;
+            const imageHeight = pageImage.naturalHeight * fitScale * zoomLevel;
+            const horizontalMargin = Math.max(0, (stage.clientWidth - imageWidth) / 2);
+            const verticalMargin = Math.max(0, (stage.clientHeight - imageHeight) / 2);
+
+            pageImage.style.width = `${imageWidth}px`;
+            pageImage.style.height = `${imageHeight}px`;
+            pageImage.style.margin = `${verticalMargin}px ${horizontalMargin}px`;
+        }
+
+        function setZoom(level) {
+            zoomLevel = Math.max(1, Math.min(level, 3));
+            pageImage.classList.toggle('is-zoomed', zoomLevel > 1);
+            updateImageSize();
+
+            const stage = document.querySelector('.page-stage');
+            requestAnimationFrame(() => {
+                if (zoomLevel === 1) {
+                    stage.scrollLeft = 0;
+                    stage.scrollTop = 0;
+                    return;
+                }
+
+                stage.scrollLeft = (stage.scrollWidth - stage.clientWidth) / 2;
+                stage.scrollTop = (stage.scrollHeight - stage.clientHeight) / 2;
+            });
+        }
 
         function showPage(pageIndex) {
             currentPage = Math.max(0, Math.min(pageIndex, pages.length - 1));
+            setZoom(1);
             pageImage.src = `./fotos/capitulo_0${chapterNumber}/${encodeURIComponent(pages[currentPage])}`;
             pageNumber.textContent = currentPage + 1;
             progressBar.style.width = `${((currentPage + 1) / pages.length) * 100}%`;
@@ -89,13 +133,71 @@
             if (event.key === 'ArrowLeft') changePage(-1);
             if (event.key === 'ArrowRight' || event.key === ' ') changePage(1);
         });
+        pageImage.addEventListener('dblclick', () => setZoom(zoomLevel === 1 ? 2 : 1));
+        pageImage.addEventListener('load', updateImageSize);
+        window.addEventListener('resize', updateImageSize);
         pageImage.addEventListener('touchstart', (event) => {
+            if (event.touches.length === 2) {
+                isPinching = true;
+                pinchStartDistance = Math.hypot(
+                    event.touches[0].screenX - event.touches[1].screenX,
+                    event.touches[0].screenY - event.touches[1].screenY
+                );
+                event.preventDefault();
+                return;
+            }
+
             touchStartX = event.changedTouches[0].screenX;
-        }, { passive: true });
+            touchStartY = event.changedTouches[0].screenY;
+            touchStartScrollLeft = document.querySelector('.page-stage').scrollLeft;
+            touchStartScrollTop = document.querySelector('.page-stage').scrollTop;
+            event.preventDefault();
+        }, { passive: false });
+        pageImage.addEventListener('touchmove', (event) => {
+            if (event.touches.length === 1 && zoomLevel > 1 && !isPinching) {
+                const stage = document.querySelector('.page-stage');
+                stage.scrollLeft = touchStartScrollLeft - (event.touches[0].screenX - touchStartX);
+                stage.scrollTop = touchStartScrollTop - (event.touches[0].screenY - touchStartY);
+                event.preventDefault();
+                return;
+            }
+
+            if (event.touches.length !== 2 || !pinchStartDistance) return;
+
+            const distance = Math.hypot(
+                event.touches[0].screenX - event.touches[1].screenX,
+                event.touches[0].screenY - event.touches[1].screenY
+            );
+            setZoom(zoomLevel * (distance / pinchStartDistance));
+            pinchStartDistance = distance;
+            event.preventDefault();
+        }, { passive: false });
         pageImage.addEventListener('touchend', (event) => {
+            if (event.touches.length > 0) {
+                pinchStartDistance = 0;
+                return;
+            }
+
+            if (pinchStartDistance || isPinching) {
+                pinchStartDistance = 0;
+                isPinching = false;
+                return;
+            }
+
+            const now = Date.now();
+            if (now - lastTapTime < 300) {
+                setZoom(zoomLevel === 1 ? 2 : 1);
+                lastTapTime = 0;
+                return;
+            }
+            lastTapTime = now;
+
             const distance = event.changedTouches[0].screenX - touchStartX;
-            if (Math.abs(distance) > 45) changePage(distance < 0 ? 1 : -1);
-        }, { passive: true });
+            const verticalDistance = event.changedTouches[0].screenY - touchStartY;
+            if (zoomLevel === 1 && Math.abs(distance) > 45 && Math.abs(distance) > Math.abs(verticalDistance)) {
+                changePage(distance < 0 ? 1 : -1);
+            }
+        }, { passive: false });
     </script>
 </body>
 </html>

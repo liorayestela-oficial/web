@@ -695,19 +695,27 @@ body {
 .page-stage {
     min-height: 0;
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 4rem;
-    touch-action: pan-y;
+    overflow: auto;
+    padding: 0;
+    touch-action: none;
 }
 
 #comic-page {
+    display: block;
     width: auto;
-    height: 100%;
+    height: auto;
     max-width: 100%;
+    max-height: 100%;
+    margin: auto;
     object-fit: contain;
     user-select: none;
+    cursor: zoom-in;
+}
+
+#comic-page.is-zoomed {
+    max-width: none;
+    max-height: none;
+    cursor: zoom-out;
 }
 
 .reader-nav {
@@ -788,7 +796,7 @@ body {
     }
 
     .page-stage {
-        padding: 0.5rem 2.5rem;
+        padding: 0;
     }
 
     .reader-nav {
