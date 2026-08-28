@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PQ2CHS8T');</script>
+    <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Capitulo gratuito - Liora y Estela</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="reader-page">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQ2CHS8T"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <main class="reader" aria-label="Lector de capitulos">
         <header class="reader-toolbar">
             <a href="./lanzamientos.html" class="reader-button" aria-label="Volver a lanzamientos">← <span>Volver</span></a>
             <h1 id="reader-title">Capitulo</h1>
-            <div class="reader-status">
-                <span><span id="page-number">1</span> / <span id="page-total">0</span></span>
-                <!-- CONTADOR DE VISTAS VISIBLE -->
-                <span style="margin-left: 10px; font-size: 0.85em; opacity: 0.8;">👁️ <span id="view-count">...</span></span>
-            </div>
+            <div class="reader-status"><span id="page-number">1</span> / <span id="page-total">0</span></div>
         </header>
 
         <section class="page-stage">
@@ -70,26 +77,6 @@
         let isPinching = false;
         let touchStartScrollLeft = 0;
         let touchStartScrollTop = 0;
-
-        // Función para actualizar las visitas usando una API gratuita de contadores (Countapi)
-        function registerView() {
-            // Usa un espacio único basado en tu repositorio/manga
-            const namespace = 'liora-y-estela-manga';
-            const key = `capitulo-${chapterNumber || 'general'}`;
-            
-            fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
-                .then(response => response.json())
-                .then(data => {
-                    const viewCounterSpan = document.querySelector('#view-count');
-                    if (viewCounterSpan && data.value) {
-                        viewCounterSpan.textContent = data.value;
-                    }
-                })
-                .catch(error => {
-                    console.error("Error al cargar el contador de vistas:", error);
-                    document.querySelector('#view-count').textContent = "---";
-                });
-        }
 
         function updateImageSize() {
             if (!pageImage.naturalWidth || !pageImage.naturalHeight) return;
@@ -149,8 +136,6 @@
             title.textContent = `Capitulo ${chapterNumber}`;
             pageTotal.textContent = pages.length;
             showPage(0);
-            // Registra la visita al cargar el capítulo por primera vez
-            registerView();
         }
 
         document.querySelector('.previous-page').addEventListener('click', () => changePage(-1));
