@@ -72,6 +72,35 @@
             margin: 0;
         }
 
+        @media (max-width: 768px) {
+            .banner-box {
+                min-height: 220px;
+                padding: 20px 12px;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+
+            .banner-box .main-title {
+                font-size: 1.45rem !important;
+                line-height: 1;
+                white-space: normal;
+                letter-spacing: 0.03em;
+                color: #111111;
+                margin-bottom: 0.25rem;
+                transform: translateY(-4px);
+            }
+
+            .banner-box {
+                justify-content: center;
+            }
+
+            .banner-box img.logo-img {
+                width: 34% !important;
+                max-width: 118px !important;
+                margin-top: 0 !important;
+            }
+        }
+
         @media (min-width: 768px) {
             .banner-box {
                 min-height: 400px;
