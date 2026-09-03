@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Capitulo gratuito - Liora y Estela</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        const chapterForTracking = new URLSearchParams(window.location.search).get('capitulo');
+        window.goatcounter = {
+            path: chapterForTracking ? `/capitulo-${chapterForTracking}` : window.location.pathname
+        };
+    </script>
+    <script data-goatcounter="https://lye.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body class="reader-page">
     <main class="reader" aria-label="Lector de capitulos">
